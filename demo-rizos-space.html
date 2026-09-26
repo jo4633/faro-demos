@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- =========================================================================
+  PLANTILLA WEB PARA NEGOCIOS LOCALES — V1
+  ==========================================================================
+  CÓMO REUTILIZAR ESTA PLANTILLA PARA UN NUEVO CLIENTE:
+
+  1. Busca el objeto  const business = { ... }  en el <script> al final
+     del archivo. Ahí cambias TODO el contenido: nombre, textos, teléfono,
+     WhatsApp, dirección, horarios, servicios, reseñas, redes sociales,
+     Google Maps y las imágenes.
+  2. Busca el bloque  :root { --color-... }  en el <style> para cambiar
+     la paleta de colores del negocio (5 variables, todo lo demás se
+     actualiza solo).
+  3. Cambia el <title>, la meta description, las etiquetas Open Graph
+     y el favicon (marcados abajo con "CAMBIAR AQUÍ").
+  4. Reemplaza las imágenes: son URLs de Unsplash de ejemplo. Solo
+     sustituye la URL por la foto real del negocio (mismo tamaño
+     aproximado) o por una ruta local tipo "img/hero.jpg".
+  5. No necesitas tocar el HTML de las secciones: todo el contenido
+     visible se genera desde "business" con JavaScript. Si un negocio
+     no tiene galería o reseñas, deja el array vacío y esa sección
+     se oculta automáticamente.
+========================================================================= -->
+
+<title>Rizos Space — Estilismo ondulado, rizos y afro</title>
+<!-- CAMBIAR AQUÍ: título de la pestaña -->
+
+<meta name="description" content="Rizos Space. Especialistas en cabello ondulado, rizado y afro, en Las Terrenas y Santo Domingo. Agenda tu cita por WhatsApp.">
+<!-- CAMBIAR AQUÍ: meta description (150-160 caracteres, resume el negocio) -->
+
+<!-- Open Graph — CAMBIAR AQUÍ (se usa cuando comparten el link en WhatsApp/Instagram/Facebook) -->
+<meta property="og:title" content="Rizos Space">
+<meta property="og:description" content="Especialistas en cabello ondulado, rizado y afro. Las Terrenas y Santo Domingo.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1763048208932-cbe149724374?q=80&w=1200&auto=format&fit=crop">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tu-dominio.com/">
+<!-- CAMBIAR AQUÍ: URL real del sitio una vez publicado -->
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14332E">
+
+<!-- CAMBIAR AQUÍ: cuando el sitio tenga dominio propio, descomenta y actualiza esta línea -->
+<!-- <link rel="canonical" href="https://tu-dominio.com/"> -->
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌀</text></svg>">
+<!-- CAMBIAR AQUÍ: favicon. De momento es un emoji de placeholder, cámbialo por el logo real -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================================
+   1. TOKENS DE DISEÑO — cambia solo estas variables para adaptar la
+      plantilla a otro negocio (colores). El resto del CSS las usa.
+   ===================================================================== */
+:root{
+  --color-dark:      #2A1810;   /* espresso profundo — fondo oscuro, navbar, footer */
+  --color-cream:      #FBF1E7;  /* marfil cálido — fondo principal claro */
+  --color-accent:     #A63D5C;  /* rosa vino — botones, acentos, CTA */
+  --color-accent-dark:#7E2C43;  /* rosa vino oscuro — hover de botones */
+  --color-sage:       #B08968;  /* caramelo cálido — detalles secundarios */
+  --color-gold:       #E3A9BB;  /* rosa claro — texto/eyebrows sobre fondo OSCURO (navbar, hero, footer) */
+  --color-gold-deep:  #9C4F68;  /* rosa oscuro — usado sobre fondo CLARO (estrellas de reseñas) para mantener buen contraste */
+  --color-ink:        #241712;  /* texto principal, casi negro */
+  --color-ink-soft:   #5C4A40;  /* texto secundario */
+  --color-line:       rgba(36,23,18,0.12);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Karla', -apple-system, sans-serif;
+
+  --container: 1180px;
+  --radius: 4px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+:root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+html{ scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px); }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--color-ink);
+  background:var(--color-cream);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+h1,h2,h3{ font-family:var(--font-display); margin:0; font-weight:600; color:var(--color-dark); }
+p{ margin:0; }
+.container{ max-width:var(--container); margin:0 auto; padding:0 24px; }
+section{ padding:96px 0; }
+@media (max-width:768px){ section{ padding:64px 0; } }
+
+:focus-visible{ outline:2px solid var(--color-accent); outline-offset:3px; }
+
+.eyebrow-line{
+  display:flex; align-items:center; gap:14px;
+  color:var(--color-sage); font-weight:600; font-size:0.95rem;
+  margin-bottom:14px;
+}
+.eyebrow-line::before{
+  content:''; width:32px; height:1px; background:var(--color-sage);
+}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:15px 30px; border-radius:var(--radius); font-weight:600;
+  font-size:0.98rem; border:1px solid transparent; transition:transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  white-space:nowrap;
+}
+@media (max-width:480px){
+  /* Si un cliente tiene un CTA con texto largo, evita que se desborde en pantallas pequeñas */
+  .btn{ white-space:normal; text-align:center; }
+}
+.btn:active{ transform:scale(0.97); }
+.btn-primary{ background:var(--color-accent); color:#fff; }
+.btn-primary:hover{ background:var(--color-accent-dark); }
+.btn-outline{ background:transparent; color:var(--color-dark); border-color:var(--color-dark); }
+.btn-outline:hover{ background:var(--color-dark); color:#fff; }
+.btn-outline-light{ background:transparent; color:#fff; border-color:rgba(255,255,255,0.55); }
+.btn-outline-light:hover{ background:#fff; color:var(--color-dark); }
+
+/* ---------- NAVBAR ---------- */
+#navbar{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:calc(20px + env(safe-area-inset-top,0px)) 0 20px;
+  transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+}
+#navbar .container{ display:flex; align-items:center; justify-content:space-between; }
+#navbar.scrolled{
+  background:rgba(246,241,231,0.94); backdrop-filter:blur(8px);
+  padding:calc(12px + env(safe-area-inset-top,0px)) 0 12px; box-shadow:0 1px 0 var(--color-line);
+}
+.nav-logo{ font-family:var(--font-display); font-weight:600; font-size:1.4rem; color:#fff; transition:color .35s ease; }
+#navbar.scrolled .nav-logo{ color:var(--color-dark); }
+.nav-links{ display:flex; align-items:center; gap:36px; list-style:none; margin:0; padding:0; }
+.nav-links a{
+  color:rgba(255,255,255,0.9); font-weight:500; font-size:0.95rem; transition:color .35s ease;
+  position:relative;
+}
+#navbar.scrolled .nav-links a{ color:var(--color-ink); }
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:-4px; height:1px; width:0;
+  background:currentColor; transition:width .25s ease;
+}
+.nav-links a:hover::after{ width:100%; }
+.nav-cta{ display:flex; align-items:center; gap:14px; }
+#navToggle{
+  display:none; background:none; border:none; padding:8px; z-index:1001;
+}
+#navToggle span{
+  display:block; width:24px; height:2px; background:#fff; margin:5px 0; transition:all .3s ease;
+}
+#navbar.scrolled #navToggle span{ background:var(--color-dark); }
+#navToggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+#navToggle.open span:nth-child(2){ opacity:0; }
+#navToggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+@media (max-width:900px){
+  .nav-links{
+    position:fixed; top:0; right:0; bottom:0; left:auto; width:min(320px, 78vw);
+    background:var(--color-dark);
+    flex-direction:column; justify-content:center; gap:30px;
+    transform:translateX(100%); transition:transform .4s ease; padding:0 32px;
+  }
+  .nav-links.open{ transform:translateX(0); }
+  .nav-links a{ color:#fff !important; font-size:1.2rem; }
+  .nav-cta .btn-outline-light{ display:none; }
+  #navToggle{ display:block; }
+}
+
+/* ---------- HERO ---------- */
+#hero{
+  position:relative; min-height:100svh; display:flex; align-items:center;
+  padding:140px 0 80px; overflow:hidden; background:var(--color-dark);
+}
+#hero::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,51,46,0.55) 0%, rgba(20,51,46,0.78) 65%, rgba(20,51,46,0.95) 100%), var(--hero-img) center/cover no-repeat;
+  z-index:0;
+}
+.hero-inner{ position:relative; z-index:1; max-width:720px; }
+.hero-tagline{
+  color:var(--color-gold); font-weight:600; letter-spacing:0.02em;
+  margin-bottom:22px; font-size:1.05rem; display:flex; align-items:center; gap:12px;
+}
+.hero-tagline::before{ content:''; width:36px; height:1px; background:var(--color-gold); }
+#hero h1{
+  color:#fff; font-size:clamp(2.6rem, 6vw, 4.4rem); line-height:1.04; font-weight:600;
+  margin-bottom:26px; max-width:14ch;
+}
+.hero-desc{
+  color:rgba(255,255,255,0.85); font-size:1.15rem; max-width:46ch; margin-bottom:40px;
+}
+.hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; }
+@media (max-width:600px){ .hero-ctas .btn{ width:100%; } }
+
+/* ---------- SECTION HEADINGS ---------- */
+.section-head{ max-width:640px; margin-bottom:56px; }
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2{ font-size:clamp(1.9rem, 3.4vw, 2.6rem); line-height:1.15; }
+
+/* ---------- SERVICIOS ---------- */
+#services{ background:var(--color-cream); }
+.services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--color-line); border:1px solid var(--color-line); }
+@media (max-width:900px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .services-grid{ grid-template-columns:1fr; } }
+.service-card{
+  background:var(--color-cream); padding:44px 36px; transition:background .25s ease;
+}
+.service-card:hover{ background:#fff; }
+.service-icon{ font-size:1.8rem; margin-bottom:20px; }
+.service-card h3{ font-size:1.25rem; margin-bottom:10px; }
+.service-card p{ color:var(--color-ink-soft); font-size:0.97rem; margin-bottom:16px; }
+.service-price{ font-family:var(--font-display); color:var(--color-accent); font-size:1.1rem; font-weight:600; }
+
+/* ---------- GALERÍA ---------- */
+#gallery{ background:var(--color-dark); }
+#gallery .section-head h2, #gallery .eyebrow-line{ color:#fff; }
+#gallery .eyebrow-line{ color:var(--color-gold); }
+#gallery .eyebrow-line::before{ background:var(--color-gold); }
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:200px; gap:10px;
+}
+.gallery-grid img{ width:100%; height:100%; object-fit:cover; cursor:zoom-in; transition:transform .5s ease, filter .3s ease; }
+.gallery-grid a:hover img{ transform:scale(1.04); filter:brightness(1.05); }
+.gallery-grid a:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+.gallery-grid a:nth-child(4){ grid-column:span 2; }
+@media (max-width:900px){
+  .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:160px; }
+  .gallery-grid a:nth-child(1){ grid-column:span 2; grid-row:span 1; }
+}
+
+/* ---------- SOBRE EL NEGOCIO ---------- */
+#about .container{ display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+@media (max-width:900px){ #about .container{ grid-template-columns:1fr; gap:40px; } }
+.about-media{ position:relative; }
+.about-media img{ border-radius:var(--radius); aspect-ratio:4/3; object-fit:cover; width:100%; }
+.about-badge{
+  position:absolute; bottom:-24px; left:-24px; background:var(--color-accent); color:#fff;
+  padding:20px 26px; border-radius:var(--radius);
+}
+@media (max-width:900px){ .about-badge{ left:0; } }
+.about-badge strong{ display:block; font-family:var(--font-display); font-size:1.8rem; }
+.about-badge span{ font-size:0.85rem; opacity:0.9; }
+.about-text p{ color:var(--color-ink-soft); margin-bottom:28px; font-size:1.05rem; }
+.about-features{ list-style:none; margin:0; padding:0; display:grid; gap:16px; }
+.about-features li{ display:flex; gap:14px; align-items:flex-start; font-size:0.98rem; }
+.about-features li::before{ content:'—'; color:var(--color-accent); font-weight:700; flex-shrink:0; }
+
+/* ---------- RESEÑAS ---------- */
+#reviews{ background:var(--color-sage); background:#EFE9DA; }
+.reviews-track{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+@media (max-width:900px){ .reviews-track{ grid-template-columns:1fr; } }
+.review-card{ background:var(--color-cream); border:1px solid var(--color-line); padding:34px; border-radius:var(--radius); }
+.review-stars{ color:var(--color-gold-deep); font-size:1.05rem; margin-bottom:16px; letter-spacing:2px; }
+.review-quote{ font-family:var(--font-display); font-size:1.08rem; line-height:1.5; color:var(--color-ink); margin-bottom:22px; }
+.review-author{ display:flex; align-items:center; gap:12px; font-size:0.9rem; color:var(--color-ink-soft); }
+.review-author strong{ color:var(--color-ink); display:block; font-size:0.95rem; }
+
+/* ---------- INFO / CONTACTO ---------- */
+#info{ background:var(--color-dark); color:#fff; }
+#info .container{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start; }
+@media (max-width:900px){ #info .container{ grid-template-columns:1fr; gap:44px; } }
+#info .section-head h2{ color:#fff; }
+#info .eyebrow-line{ color:var(--color-gold); }
+#info .eyebrow-line::before{ background:var(--color-gold); }
+.info-list{ list-style:none; margin:0 0 36px; padding:0; display:grid; gap:22px; }
+.info-list li{ display:flex; gap:16px; }
+.info-list .ico{ font-size:1.2rem; flex-shrink:0; width:26px; }
+.info-list h4{ font-family:var(--font-body); font-weight:600; font-size:0.95rem; margin-bottom:4px; }
+.info-list p, .info-list a{ color:rgba(255,255,255,0.72); font-size:0.95rem; }
+.map-frame{ border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,0.15); aspect-ratio:4/3; }
+.map-frame iframe{ width:100%; height:100%; border:0; }
+
+/* ---------- CTA FINAL ---------- */
+#final-cta{
+  background:var(--color-accent); text-align:center; padding:90px 0;
+}
+#final-cta h2{ color:#fff; font-size:clamp(1.8rem,4vw,2.7rem); margin-bottom:18px; }
+#final-cta p{ color:rgba(255,255,255,0.9); max-width:480px; margin:0 auto 34px; font-size:1.08rem; }
+#final-cta .btn-outline-light{ border-color:#fff; }
+#final-cta .btn-primary{ background:var(--color-dark); }
+#final-cta .btn-primary:hover{ background:#0c211d; }
+.final-cta-buttons{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+/* ---------- FOOTER ---------- */
+footer{ background:#0F2723; color:rgba(255,255,255,0.65); padding:56px 0 28px; font-size:0.9rem; }
+.footer-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:40px; }
+.footer-brand{ font-family:var(--font-display); color:#fff; font-size:1.3rem; margin-bottom:10px; }
+.footer-social{ display:flex; gap:16px; }
+.footer-social a{ color:rgba(255,255,255,0.65); transition:color .2s ease; }
+.footer-social a:hover{ color:var(--color-gold); }
+.footer-bottom{ border-top:1px solid rgba(255,255,255,0.12); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+/* ---------- BOTONES FLOTANTES (WhatsApp / llamada) ---------- */
+#floating-actions{ position:fixed; bottom:calc(22px + env(safe-area-inset-bottom,0px)); right:22px; z-index:900; display:flex; flex-direction:column; gap:12px; }
+.fab{
+  width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.25); transition:transform .2s ease;
+}
+.fab:hover{ transform:scale(1.08); }
+.fab-whatsapp{ background:#25D366; }
+.fab-call{ background:var(--color-accent); display:none; }
+@media (max-width:768px){ .fab-call{ display:flex; } }
+
+/* ---------- LIGHTBOX ---------- */
+#lightbox{
+  position:fixed; inset:0; background:rgba(15,20,18,0.96); z-index:2000;
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+#lightbox.open{ display:flex; }
+#lightbox img{ max-width:100%; max-height:88vh; border-radius:var(--radius); }
+#lightbox-close{ position:absolute; top:24px; right:28px; background:none; border:none; color:#fff; font-size:2rem; line-height:1; }
+#lightbox-prev, #lightbox-next{
+  position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:none;
+  color:#fff; width:48px; height:48px; border-radius:50%; font-size:1.4rem;
+}
+#lightbox-prev{ left:20px; } #lightbox-next{ right:20px; }
+
+/* ---------- ANIMACIÓN AL APARECER ---------- */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="container">
+    <a href="#hero" class="nav-logo" id="navLogo"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="nav-link-item">Inicio</a></li>
+      <li><a href="#services" class="nav-link-item">Servicios</a></li>
+      <li><a href="#gallery" class="nav-link-item">Galería</a></li>
+      <li><a href="#about" class="nav-link-item">Sobre nosotros</a></li>
+      <li><a href="#info" class="nav-link-item">Contacto</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-outline-light" id="navCta" target="_blank" rel="noopener">Reservar</a>
+    </div>
+    <button id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header id="hero">
+  <div class="container hero-inner">
+    <p class="hero-tagline" id="heroTagline"></p>
+    <h1 id="heroTitle"></h1>
+    <p class="hero-desc" id="heroDesc"></p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary" id="heroCtaPrimary" target="_blank" rel="noopener"></a>
+      <a href="#services" class="btn btn-outline-light" id="heroCtaSecondary"></a>
+    </div>
+  </div>
+</header>
+
+<section id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow-line">Lo que ofrecemos</p>
+      <h2>Servicios</h2>
+    </div>
+    <div class="services-grid reveal" id="servicesGrid"></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow-line">Un vistazo</p>
+      <h2>Galería</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="gallery-grid reveal" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-media reveal">
+      <img id="aboutImg" src="" alt="" loading="lazy" width="600" height="450">
+      <div class="about-badge" id="aboutBadge">
+        <strong id="aboutBadgeNumber"></strong>
+        <span id="aboutBadgeLabel"></span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p class="eyebrow-line">Nuestra historia</p>
+      <h2 id="aboutTitle" style="margin-bottom:22px;"></h2>
+      <p id="aboutDesc"></p>
+      <ul class="about-features" id="aboutFeatures"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="container">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <p class="eyebrow-line" style="justify-content:center;">Lo que dicen</p>
+      <h2>Reseñas</h2>
+    </div>
+    <div class="reviews-track reveal" id="reviewsTrack"></div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="container">
+    <div>
+      <p class="eyebrow-line">Visítanos</p>
+      <h2 class="section-head" style="margin-bottom:32px;">Información</h2>
+      <ul class="info-list" id="infoList"></ul>
+      <a href="#" class="btn btn-primary" id="infoWhatsappBtn" target="_blank" rel="noopener"></a>
+    </div>
+    <div class="map-frame reveal">
+      <iframe id="mapFrame" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación en el mapa"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="final-cta">
+  <div class="container reveal">
+    <h2 id="finalCtaTitle"></h2>
+    <p id="finalCtaDesc"></p>
+    <div class="final-cta-buttons">
+      <a href="#" class="btn btn-primary" id="finalCtaWhatsapp" target="_blank" rel="noopener"></a>
+      <a href="#" class="btn btn-outline-light" id="finalCtaCall"></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand" id="footerBrand"></div>
+        <p id="footerTagline"></p>
+      </div>
+      <div class="footer-social" id="footerSocial"></div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footerCopy"></span>
+      <span>Sitio creado por <a href="#" style="text-decoration:underline;" title="Faro Web Studio — Guiamos tu negocio hacia internet.">Faro Web Studio</a></span>
+      <!-- Esta línea es de TU marca (Faro Web Studio), no del negocio del cliente —
+           queda igual en todas las webs que crees con esta plantilla. Cuando tengas
+           dominio/WhatsApp propios de la agencia, cambia el href="#" por ese link. -->
+    </div>
+  </div>
+</footer>
+
+<div id="floating-actions">
+  <a href="#" class="fab fab-call" id="fabCall" aria-label="Llamar">📞</a>
+  <a href="#" class="fab fab-whatsapp" id="fabWhatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+</div>
+
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Cerrar">×</button>
+  <button id="lightbox-prev" aria-label="Anterior">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+/* =====================================================================
+   2. CONFIGURACIÓN DEL NEGOCIO
+   =====================================================================
+   TODO lo que ve el visitante sale de este único objeto. Para crear
+   una web nueva para otro cliente, solo tienes que reescribir estos
+   datos (y las URLs de imágenes) — no toques el HTML ni el resto del
+   JavaScript.
+   ===================================================================== */
+// ⚠️ IMPORTANTE: los datos de abajo (reseñas, "10+ años de trayectoria", horarios, etc.)
+// son 100% FICTICIOS — solo para mostrar cómo luce la plantilla con contenido real.
+// Antes de entregar una web a un cliente real, reemplaza TODOS estos campos —
+// especialmente las reseñas y cualquier cifra o afirmación — por información
+// verídica de ese negocio. Nunca publiques reseñas o datos inventados a nombre
+// de un negocio real: además de ser poco ético, muchas plataformas lo consideran
+// publicidad engañosa.
+const business = {
+
+  // ⚠️ DEMO PERSONALIZADA PARA UN PROSPECTO REAL (Rizos Space).
+  // A diferencia de las demos de ejemplo, aquí SÍ usamos datos reales verificados
+  // (WhatsApp, Instagram, horarios y dirección vienen de su ficha pública de
+  // Google Maps e Instagram). Lo que NO es real: la lista de servicios y precios
+  // de abajo son solo ilustrativos para mostrar el formato — no están confirmados
+  // con el negocio, así que no deben presentarse como definitivos. Tampoco hay
+  // reseñas: no se inventan testimonios a nombre de un negocio real; el "reviews"
+  // se deja vacío a propósito y en su lugar se usa su cifra real de Instagram.
+
+  // ---- IDENTIDAD ----
+  name: "Rizos Space",
+  tagline: "Estilismo ondulado, rizos y afro",     // frase corta bajo el logo en el hero
+  logoText: "Rizos Space",                              // texto del logo en la navbar
+  schemaType: "HairSalon",                            // tipo de negocio para SEO local (schema.org)
+
+  // ---- CONTACTO (verificado: bio real de Instagram @rizosspace) ----
+  phone: "+1 849 390 7363",
+  phoneHref: "tel:+18493907363",
+  whatsapp: "18493907363",
+  whatsappMessage: "Hola, vi la página y me gustaría agendar una cita en Rizos Space",
+
+  // ---- UBICACIÓN (verificado: Google Maps) ----
+  address: "Puerto Plaza, Las Terrenas",
+  addressFull: "Puerto Plaza, Las Terrenas 32000, República Dominicana",
+  mapEmbedUrl: "",
+
+  // ---- HORARIOS (verificado: Google Maps) ----
+  hours: [
+    { days: "Lunes a sábado", time: "9:00 am – 6:30 pm" },
+    { days: "Domingo", time: "Cerrado" },
+    { days: "Solo con cita previa", time: "por WhatsApp" }
+  ],
+
+  // ---- REDES SOCIALES (verificado: Instagram real, 957 seguidores) ----
+  social: [
+    { label: "Instagram", icon: "IG", href: "https://instagram.com/rizosspace" },
+    { label: "Facebook", icon: "FB", href: "" },
+    { label: "TikTok", icon: "TK", href: "" }
+  ],
+
+  // ---- HERO ----
+  hero: {
+    heading: "Tus rizos, en las mejores manos",
+    description: "Especialistas en cabello ondulado, rizado y afro. Atendemos en Las Terrenas y Santo Domingo, siempre con cita previa por WhatsApp.",
+    ctaPrimaryLabel: "Agendar por WhatsApp",
+    ctaSecondaryLabel: "Ver servicios",
+    image: "https://images.unsplash.com/photo-1763048208932-cbe149724374?q=80&w=1600&auto=format&fit=crop"
+  },
+
+  // ---- SERVICIOS ---- (⚠️ ILUSTRATIVO: nombres y precios de ejemplo — confirmar con el negocio antes de publicar)
+  services: [
+    { icon: "🌀", name: "Diagnóstico y corte curly", desc: "Corte adaptado a tu tipo de rizo, para que recupere su forma natural.", price: "" },
+    { icon: "💧", name: "Hidratación profunda", desc: "Tratamiento humectante intensivo para rizos y cabello afro.", price: "" },
+    { icon: "✨", name: "Definición de rizos", desc: "Peinado con técnica de definición, control de frizz y brillo.", price: "" },
+    { icon: "🎨", name: "Color y mechas", desc: "Coloración cuidando la salud e integridad del rizo.", price: "" },
+    { icon: "💇", name: "Blowout ocasional", desc: "Para cuando buscas un cambio puntual sin renunciar a tu rutina.", price: "" },
+    { icon: "🎉", name: "Peinado para eventos", desc: "Recogidos y estilos especiales para ocasiones importantes.", price: "" }
+  ],
+
+  // ---- GALERÍA ----
+  gallery: [
+    "https://images.unsplash.com/photo-1722548386413-2f6a23e651a4?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1669563306562-7d4714acb445?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1732861612244-5704d12e9397?q=80&w=800&auto=format&fit=crop"
+  ],
+
+  // ---- SOBRE EL NEGOCIO ---- (solo datos verificables, sin inventar historia ni años de trayectoria)
+  about: {
+    title: "Especialistas en rizos, ondas y cabello afro",
+    description: "Rizos Space atiende en dos ciudades: Las Terrenas y Santo Domingo, siempre por cita previa vía WhatsApp. Una comunidad activa de casi mil personas en Instagram sigue su trabajo día a día.",
+    image: "https://images.unsplash.com/photo-1739825353871-2b9c6716142a?q=80&w=1000&auto=format&fit=crop",
+    badgeNumber: "950+",
+    badgeLabel: "seguidores en Instagram",
+    features: [
+      "Especialistas en rizos, ondas y cabello afro",
+      "Atención en Las Terrenas y Santo Domingo",
+      "Solo con cita previa, por WhatsApp",
+      "Comunidad activa en Instagram (@rizosspace)"
+    ]
+  },
+
+  // ---- RESEÑAS ---- (vacío a propósito: no se inventan testimonios para un negocio real)
+  reviews: [],
+
+  // ---- CTA FINAL ----
+  finalCta: {
+    title: "Agenda tu cita en Rizos Space",
+    description: "Escribe por WhatsApp y confirma disponibilidad en Las Terrenas o Santo Domingo.",
+    whatsappLabel: "Agendar por WhatsApp",
+    callLabel: "Llamar ahora"
+  },
+
+  footerTagline: "Estilismo ondulado, rizos y afro — Las Terrenas y Santo Domingo.",
+  colorTheme: "rizos-space-demo" // referencia interna, no afecta el CSS (los colores se cambian en :root)
+};
+
+
+/* =====================================================================
+   3. MOTOR DE LA PLANTILLA — no necesitas editar nada de aquí abajo
+      para cambiar de negocio. Solo lee "business" y llena la página.
+   ===================================================================== */
+(function(){
+
+  const waLink = (msg) => `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(msg || business.whatsappMessage)}`;
+
+  // ---- Navbar / logo / CTA ----
+  document.getElementById('navLogo').textContent = business.logoText;
+  document.getElementById('footerBrand').textContent = business.name;
+  document.getElementById('footerTagline').textContent = business.footerTagline;
+  document.getElementById('footerCopy').textContent = `© ${new Date().getFullYear()} ${business.name}. Todos los derechos reservados.`;
+
+  const navCta = document.getElementById('navCta');
+  navCta.textContent = 'Reservar';
+  navCta.href = waLink();
+
+  // ---- Hero ----
+  document.getElementById('heroTagline').textContent = business.tagline;
+  document.getElementById('heroTitle').textContent = business.hero.heading;
+  document.getElementById('heroDesc').textContent = business.hero.description;
+  document.getElementById('hero').style.setProperty('--hero-img', `url('${business.hero.image}')`);
+
+  const heroPrimary = document.getElementById('heroCtaPrimary');
+  heroPrimary.textContent = business.hero.ctaPrimaryLabel;
+  heroPrimary.href = waLink();
+  document.getElementById('heroCtaSecondary').textContent = business.hero.ctaSecondaryLabel;
+
+  // ---- Servicios ----
+  const servicesGrid = document.getElementById('servicesGrid');
+  business.services.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'service-card';
+    card.innerHTML = `
+      <div class="service-icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      ${s.price ? `<div class="service-price">${s.price}</div>` : ''}
+    `;
+    servicesGrid.appendChild(card);
+  });
+
+  // ---- Galería ----
+  const galleryGrid = document.getElementById('galleryGrid');
+  const galleryImgs = business.gallery;
+  if(galleryImgs.length === 0){
+    document.getElementById('gallery').style.display = 'none';
+  } else {
+    galleryImgs.forEach((src, i) => {
+      const a = document.createElement('a');
+      a.href = '#'; a.dataset.index = i;
+      a.innerHTML = `<img src="${src}" alt="${business.name} — foto ${i+1}" loading="lazy">`;
+      a.addEventListener('click', (e) => { e.preventDefault(); openLightbox(i); });
+      galleryGrid.appendChild(a);
+    });
+  }
+
+  // ---- Sobre el negocio ----
+  document.getElementById('aboutImg').src = business.about.image;
+  document.getElementById('aboutImg').alt = business.name;
+  document.getElementById('aboutTitle').textContent = business.about.title;
+  document.getElementById('aboutDesc').textContent = business.about.description;
+  document.getElementById('aboutBadgeNumber').textContent = business.about.badgeNumber;
+  document.getElementById('aboutBadgeLabel').textContent = business.about.badgeLabel;
+  const featuresList = document.getElementById('aboutFeatures');
+  business.about.features.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = f;
+    featuresList.appendChild(li);
+  });
+
+  // ---- Reseñas ----
+  const reviewsSection = document.getElementById('reviews');
+  const reviewsTrack = document.getElementById('reviewsTrack');
+  if(business.reviews.length === 0){
+    reviewsSection.style.display = 'none';
+  } else {
+    business.reviews.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `
+        <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+        <p class="review-quote">“${r.quote}”</p>
+        <div class="review-author"><strong>${r.author}</strong></div>
+      `;
+      reviewsTrack.appendChild(card);
+    });
+  }
+
+  // ---- Info / contacto ----
+  const infoList = document.getElementById('infoList');
+  const hoursHtml = business.hours.map(h => `<p>${h.days}: ${h.time}</p>`).join('');
+  infoList.innerHTML = `
+    <li><span class="ico">🕐</span><div><h4>Horario</h4>${hoursHtml}</div></li>
+    <li><span class="ico">📍</span><div><h4>Dirección</h4><p>${business.address}</p></div></li>
+    <li><span class="ico">📞</span><div><h4>Teléfono</h4><a href="${business.phoneHref}">${business.phone}</a></div></li>
+    <li><span class="ico">💬</span><div><h4>WhatsApp</h4><a href="${waLink()}" target="_blank" rel="noopener">Escríbenos directo</a></div></li>
+  `;
+  const infoWa = document.getElementById('infoWhatsappBtn');
+  infoWa.textContent = 'Escribir por WhatsApp';
+  infoWa.href = waLink();
+  document.getElementById('mapFrame').src = business.mapEmbedUrl || `https://www.google.com/maps?q=${encodeURIComponent(business.addressFull)}&output=embed`;
+
+  // ---- CTA final ----
+  document.getElementById('finalCtaTitle').textContent = business.finalCta.title;
+  document.getElementById('finalCtaDesc').textContent = business.finalCta.description;
+  const fcWa = document.getElementById('finalCtaWhatsapp');
+  fcWa.textContent = business.finalCta.whatsappLabel;
+  fcWa.href = waLink();
+  const fcCall = document.getElementById('finalCtaCall');
+  fcCall.textContent = business.finalCta.callLabel;
+  fcCall.href = business.phoneHref;
+
+  // ---- Redes sociales (footer) ----
+  const footerSocial = document.getElementById('footerSocial');
+  business.social.filter(s => s.href).forEach(s => {
+    const a = document.createElement('a');
+    a.href = s.href; a.target = '_blank'; a.rel = 'noopener';
+    a.setAttribute('aria-label', s.label);
+    a.textContent = s.icon;
+    footerSocial.appendChild(a);
+  });
+
+  // ---- Botones flotantes ----
+  const fabWa = document.getElementById('fabWhatsapp');
+  fabWa.href = waLink();
+  const fabCall = document.getElementById('fabCall');
+  fabCall.href = business.phoneHref;
+
+  // ---- Datos estructurados para Google (SEO de negocio local) ----
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@type": business.schemaType,
+    "name": business.name,
+    "image": business.hero.image,
+    "telephone": business.phone,
+    "address": { "@type": "PostalAddress", "streetAddress": business.addressFull },
+    "url": window.location.href
+  };
+  const ldScript = document.createElement('script');
+  ldScript.type = 'application/ld+json';
+  ldScript.textContent = JSON.stringify(ldJson);
+  document.head.appendChild(ldScript);
+
+  // ---- Navbar: fondo al hacer scroll ----
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive:true });
+
+  // ---- Menú móvil ----
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  document.querySelectorAll('.nav-link-item').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && navLinks.classList.contains('open')){
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ---- Animación al aparecer (Intersection Observer) ----
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // ---- Lightbox de galería ----
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  let currentIndex = 0;
+
+  function openLightbox(i){
+    currentIndex = i;
+    lightboxImg.src = galleryImgs[i];
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function showDelta(delta){
+    currentIndex = (currentIndex + delta + galleryImgs.length) % galleryImgs.length;
+    lightboxImg.src = galleryImgs[currentIndex];
+  }
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', () => showDelta(-1));
+  document.getElementById('lightbox-next').addEventListener('click', () => showDelta(1));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') showDelta(-1);
+    if(e.key === 'ArrowRight') showDelta(1);
+  });
+
+})();
+</script>
+</body>
+</html>
