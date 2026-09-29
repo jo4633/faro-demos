@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leeds Style Concept | Hair salon in Halton, Leeds</title>
+<meta name="description" content="Leeds Style Concept is a hair salon in Halton, Leeds, run by stylist Ionela. Cuts and colour with real attention to detail. Rated 4.9 on Google from 96 reviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f3ee;--ink:#241f1a;--muted:#756c60;--rose:#a8506b;--gold:#c99a4f;
+  --panel:#ece5d9;--line:#ddd4c4;--btn-text:#ffffff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1c1814;--ink:#f3efe7;--muted:#bcb1a0;--rose:#e08aa1;--gold:#dcb265;
+    --panel:#28221c;--line:#3c342a;--btn-text:#1c1814;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1c1814;--ink:#f3efe7;--muted:#bcb1a0;--rose:#e08aa1;--gold:#dcb265;
+  --panel:#28221c;--line:#3c342a;--btn-text:#1c1814;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.6}
+h1,h2,h3{font-family:Fraunces,Georgia,"Times New Roman",serif;line-height:1.05;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:4px}
+.wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.25rem;text-decoration:none}
+.brand span{color:var(--rose)}
+nav a{margin-left:1.25rem;text-decoration:none;font-weight:500;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.hero{display:grid;gap:1rem;align-items:center;padding:2.25rem 0 3.5rem}
+@media(min-width:760px){.hero{grid-template-columns:1.1fr .9fr;padding:3.5rem 0 5rem}}
+.hero h1{font-weight:700;font-size:clamp(2.6rem,8vw,4.6rem)}
+.hero p{max-width:32rem;color:var(--muted);font-size:1.15rem;margin:1.25rem 0 1.75rem}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.85rem 1.4rem;border-radius:999px;font-weight:600;text-decoration:none;background:var(--rose);color:var(--btn-text);border:2px solid var(--rose)}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn:hover{filter:brightness(1.08)}
+.rating{margin-top:1.25rem;font-size:.95rem;color:var(--muted)}
+.swoop{width:100%;max-width:22rem;justify-self:center;overflow:visible}
+.swoop path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.swoop .a{stroke:var(--rose);stroke-width:6;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 2s .1s ease-out forwards}
+.swoop .b{stroke:var(--gold);stroke-width:6;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.2s 1.1s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.swoop .a,.swoop .b{animation:none;stroke-dashoffset:0}}
+section{padding:3.25rem 0;border-top:1px solid var(--line)}
+h2{font-weight:700;font-size:clamp(1.9rem,5vw,2.7rem);margin-bottom:1.5rem}
+.svc{list-style:none;margin:0;padding:0}
+.svc li{display:grid;gap:.25rem;padding:1.25rem 0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.svc li{grid-template-columns:14rem 1fr;gap:2rem}}
+.svc h3{font-size:1.5rem;font-weight:700}
+.svc p{margin:0;color:var(--muted);max-width:38rem}
+.note{color:var(--muted);font-size:.95rem;margin-top:1rem}
+.quotes{display:grid;gap:1.5rem}
+@media(min-width:760px){.quotes{grid-template-columns:1fr 1fr}}
+blockquote{margin:0;padding:1.5rem;background:var(--panel);border-radius:1.25rem 1.25rem 1.25rem .25rem}
+blockquote p{margin:0 0 .75rem;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:1.35rem;line-height:1.3}
+blockquote cite{font-style:normal;font-size:.9rem;color:var(--muted)}
+.visit{display:grid;gap:2rem}
+@media(min-width:760px){.visit{grid-template-columns:1fr 1fr}}
+table{border-collapse:collapse;width:100%;max-width:24rem}
+td{padding:.45rem 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;color:var(--muted)}
+address{font-style:normal}
+footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#top">Leeds Style Concept<span>.</span></a>
+    <nav aria-label="Main"><a href="#services">Services</a><a href="#visit">Visit</a></nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>Your hair, actually listened to.</h1>
+        <p>A hair salon in Halton, Leeds, where Ionela takes the time to understand exactly what you want &mdash; and gets it right.</p>
+        <div class="btns">
+          <a class="btn" href="tel:+447778045836">Call to book</a>
+        </div>
+        <div class="rating">Rated 4.9 on Google from 96 reviews</div>
+      </div>
+      <svg class="swoop" viewBox="0 0 300 300" role="img" aria-label="A hand-drawn decorative swoosh">
+        <path class="a" d="M50 210 C90 150 150 130 200 160 C250 190 240 240 190 245 C150 249 140 210 170 190"/>
+        <path class="b" d="M220 90 C235 80 250 90 245 105 C240 118 222 112 220 90"/>
+      </svg>
+    </div>
+
+    <section id="services">
+      <h2>What we do</h2>
+      <ul class="svc">
+        <li><h3>Cut &amp; Style</h3><p>A precise cut shaped around your face and how you actually wear your hair day to day.</p></li>
+        <li><h3>Colour</h3><p>From a natural refresh to a full transformation, with the same care and attention every time.</p></li>
+        <li><h3>Gentle, Unrushed</h3><p>Every client says the same thing: they felt properly listened to, never rushed through the appointment.</p></li>
+      </ul>
+      <p class="note">Pricing is shared when you book.</p>
+    </section>
+
+    <section>
+      <h2>What clients say</h2>
+      <div class="quotes">
+        <blockquote><p>Best hairdresser I have been to in years! I love, love, love how my hair looks now.</p><cite>Google review, 5 stars</cite></blockquote>
+        <blockquote><p>Incredibly skilled, gentle and professional. A true professional and a wonderful person.</p><cite>Google review, 5 stars</cite></blockquote>
+      </div>
+    </section>
+
+    <section id="visit" class="visit">
+      <div>
+        <h2>Visit the salon</h2>
+        <address>257 Selby Rd<br>Halton, Leeds LS15 7JR</address>
+        <p class="note">Call or text to check availability and book your slot.</p>
+        <div class="btns"><a class="btn" href="tel:+447778045836">+44 7778 045836</a></div>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <table>
+          <tr><td>Tuesday</td><td>10am &ndash; 4pm</td></tr>
+          <tr><td>Friday</td><td>10am &ndash; 4pm</td></tr>
+          <tr><td>Saturday</td><td>10am &ndash; 4pm</td></tr>
+          <tr><td>Other days</td><td>Closed</td></tr>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>Concept demo by Faro Web Studio. This is not the official website of Leeds Style Concept.</footer>
+</div>
+</body>
+</html>
 
